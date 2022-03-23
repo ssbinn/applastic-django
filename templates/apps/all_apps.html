@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page_name %}
+    Home
+{% endblock page_name%}
+
+{% block content %}
+    <h2>0323</h2>
+
+    {% for app in apps %}
+        <h4>{{app}}</h4>
+    {% endfor %}
+
+{% endblock %}
