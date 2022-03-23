@@ -3,6 +3,7 @@ import urllib.request
 from django.shortcuts import render
 from django.core.paginator import Paginator
 import requests
+from elasticsearch import Elasticsearch
 
 # def home(request):
 #     page = request.GET.get('page', '1')  # 페이지
@@ -67,29 +68,46 @@ import requests
 # data = request.get(URL).json()['hits']['hits']
 
 
-def all_apps_API(n):
-    URL = "http://34.64.163.90:9200/my_index/_search?size=" + str(n)
-    data = requests.get(URL).json()  # ["hits"]["hits"]
+# def all_apps_API(n):
+#     URL = "http://34.64.163.90:9200/my_index/_search?size=" + str(n)
+#     data = requests.get(URL).json()  # ["hits"]["hits"]
 
-    list = []
-    for d in data:
-        a = d["_source"]
-        a["id"] = d["_id"]
-        list.append(a)
+#     list = []
+#     for d in data:
+#         a = d["_source"]
+#         a["id"] = d["_id"]
+#         list.append(a)
 
-    return list
+#     return list
 
 
 def all_apps(request):
     # core url
 
-    data_list = all_apps_API(10000)
+    es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
     # URL = "http://34.64.163.90:9200/chart-apple-iphone-kr-topfree-6005/_search?size=1"
-    # URL = "http://34.64.163.90:9200/my_index/_search?size=1"
 
-    context = {"apps": data_list}
+    # resp = es.search(
+    #     index="chart-apple-iphone-kr-topfree-6005", query={"match_all": {}}
+    # )
+    # for hit in resp["hits"]["hits"]:
+    #     print(hit["_source"]["trackName"])
+    test = es.search(index="chart-apple-iphone-kr-topfree-6005")
+    size = test["hits"]["total"]
 
-    return render(request, "apps/all_apps.html", context)
+    resp = es.search(
+        index="chart-apple-iphone-kr-topfree-6005",
+        body={"size": size["value"], "query": {"match_all": {}}},
+    )
+
+    i = 1
+    while i < size["value"]:
+        print(resp["hits"]["hits"][i]["_source"]["trackName"])
+        i += 1
+
+    # context = {"apps": data}
+
+    return render(request, "apps/all_apps.html")  # , context)
 
 
 def app_detail(request, pk):
