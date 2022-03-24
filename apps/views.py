@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage
 from elasticsearch import Elasticsearch
 
 # def home(request):
@@ -48,23 +48,26 @@ def search_apps_API():
 
 
 def all_apps(request):
-    # core url
+    # core/urls.py
 
-    page = request.GET.get("page")  # paginator
+    page = request.GET.get("page", 1)  # paginator
     app_list = search_apps_API()
 
-    if not app_list:
-        print("힝구")
+    # if not app_list:
+    #     print("힝구")
+    paginator = Paginator(app_list, 10, orphans=5)  # per_page: 10
 
-    paginator = Paginator(app_list, 10)  # per_page: 10
-    apps = paginator.get_page(page)
+    try:
+        apps = paginator.page(int(page))  # get_page vs page
 
-    context = {"page": apps}
-    return render(request, "apps/all_apps.html", context)
+        context = {"page": apps}
+        return render(request, "apps/all_apps.html", context)
+    except EmptyPage:
+        return redirect("/")
 
 
-def app_detail(request, pk):
-    # app url
+def app_detail(request, id):
+    # apps/urls.py
 
-    print(pk)
-    return render(request, "apps/app_detail.html")
+    print(id)
+    return render(request, "apps/detail.html")

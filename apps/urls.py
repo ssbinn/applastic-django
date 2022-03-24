@@ -3,4 +3,4 @@ from . import views
 
 app_name = "apps"
 
-urlpatterns = [path("<int:pk>", views.app_detail, name="detail")]
+urlpatterns = [path("<int:id>", views.app_detail, name="detail")]  # url dispatcher

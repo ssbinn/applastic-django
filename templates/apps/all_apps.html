@@ -5,10 +5,14 @@
 
     {% for app in page %}
     <p>
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ app.trackName }}</h5><br>
-            <p class="card-text">장르: {{ app.genres }}&emsp;&emsp;버전: {{ app.version }}&emsp;&emsp;차필드: {{ app.ChartField }}</p>
+        <div>
+          <div>
+            <h5>
+              <a href="/apps/{{app.id}}">
+                {{ app.trackName }}
+              </a>>
+            </h5><br>
+            <p>장르: {{ app.genres }}&emsp;&emsp;버전: {{ app.version }}&emsp;&emsp;차필드: {{ app.ChartField }}</p>
     
           </div>
         </div>
@@ -18,13 +22,13 @@
     <!-- pagination -->
     <h5>
     {% if page.has_previous %}
-        <a href="?page={{page.number|add:-1}}">Previous</a>
+        <a href="?page={{page.previous_page_number}}">Previous</a>
     {% endif %}
 
     Page {{page.number}} of {{page.paginator.num_pages}}
 
     {% if page.has_next %}
-        <a href="?page={{page.number|add:1}}">Next</a>
+        <a href="?page={{page.next_page_number}}">Next</a>
     {% endif %}
     </h5>
 
