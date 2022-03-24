@@ -1,14 +1,32 @@
 {% extends "base.html" %}
-
-{% block page_name %}
-    Home
-{% endblock page_name%}
-
 {% block content %}
-    <h2>0323</h2>
 
-    {% for app in apps %}
-        <h4>{{app}}</h4>
+    <h2>0324</h2>
+
+    {% for app in page %}
+    <p>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ app.trackName }}</h5><br>
+            <p class="card-text">장르: {{ app.genres }}&emsp;&emsp;버전: {{ app.version }}&emsp;&emsp;차필드: {{ app.ChartField }}</p>
+    
+          </div>
+        </div>
+    </p>
     {% endfor %}
+
+    <!-- pagination -->
+    <h5>
+    {% if page.has_previous %}
+        <a href="?page={{page.number|add:-1}}">Previous</a>
+    {% endif %}
+
+    Page {{page.number}} of {{page.paginator.num_pages}}
+
+    {% if page.has_next %}
+        <a href="?page={{page.number|add:1}}">Next</a>
+    {% endif %}
+    </h5>
+
 
 {% endblock %}
