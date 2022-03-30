@@ -7,4 +7,3 @@ urlpatterns = [
     path("apps/", include("apps.urls", namespace="apps")),
     path("admin/", admin.site.urls),
 ]
-# apps/ 뭐여이거

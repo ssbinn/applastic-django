@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div>
+    <h1>{{app.trackName}}</h2>
+    <h3>{{app.description}}</h4>
+</div>
 
-<h2>detail</h2>
-
-
-{% endblock %}
+<div>
+    <h2>장르</h2>
+    <ul>
+    {% for a in app.genres %}
+        <li>{{a}}</li>
+    {% endfor %}
+    </ul>
+</div>    
+{% endblock content %}

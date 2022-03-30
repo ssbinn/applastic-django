@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage
+from django.http import Http404
+from django.shortcuts import render
 from elasticsearch import Elasticsearch
 
 # def home(request):
@@ -11,19 +12,7 @@ from elasticsearch import Elasticsearch
 #     return render(request, "home.html", context)
 
 
-# def detailAPI(id):
-#     URL = "http://" + url +":9200/" + index + "/_doc/" + id
-#     data = requests.get(URL).json()['_source']
-#     return data
-
-
-# def list_detail(request, id):
-#     data = detailAPI(id)
-#     context = {"data":data}
-#     return render(request, 'pybo/detail.html', context)
-
-
-def search_apps_API():
+def list_API():
     es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
 
     index = es.search(index="chart-apple-iphone-kr-topfree-6005")
@@ -32,14 +21,13 @@ def search_apps_API():
     resp = es.search(
         index="chart-apple-iphone-kr-topfree-6005",
         body={"size": size["value"], "query": {"match_all": {}}},
-        # body={"size": size["value"], "query": {"match": {"trackName":"당근마켓"}}},
     )
 
     list = []
     i = 1
     while i < size["value"]:
         temp = resp["hits"]["hits"][i]["_source"]
-        temp["id"] = resp["hits"]["hits"][i]["_id"]
+        temp["id"] = resp["hits"]["hits"][i]["_source"]["trackId"]
 
         list.append(temp)
         i += 1
@@ -51,7 +39,7 @@ def all_apps(request):
     # core/urls.py
 
     page = request.GET.get("page", 1)  # paginator
-    app_list = search_apps_API()
+    app_list = list_API()
 
     # if not app_list:
     #     print("힝구")
@@ -62,12 +50,33 @@ def all_apps(request):
 
         context = {"page": apps}
         return render(request, "apps/all_apps.html", context)
-    except EmptyPage:
-        return redirect("/")
+    except EmptyPage:  # url에 엉뚱한 page number를 검색했을 때
+        raise Http404
+
+
+def detail_API(id):
+    es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
+    index = es.search(index="chart-apple-iphone-kr-topfree-6005")
+    # size = index["hits"]["total"]
+
+    resp = es.search(
+        index="chart-apple-iphone-kr-topfree-6005",
+        # body={"size": size["value"], "query": {"match": {"trackId": id}}},
+        body={"query": {"match": {"trackId": id}}},
+    )
+    # resp = es.get(index="chart-apple-iphone-kr-topfree-6005", id=id)
+
+    for hit in resp["hits"]["hits"]:
+        return hit["_source"]
 
 
 def app_detail(request, id):
     # apps/urls.py
 
-    print(id)
-    return render(request, "apps/detail.html")
+    app = detail_API(id)
+
+    if app == None:  # url에 엉뚱한 앱 고유 id를 검색했을 때
+        raise Http404
+
+    context = {"app": app}
+    return render(request, "apps/detail.html", context)
