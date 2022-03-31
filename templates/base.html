@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Applastic</title>
+    <title>{% block page_title %}{% endblock page_title %}| Applastic</title>
 </head>
 <body>
-    {% include "partials/header.html"%}
+    <header>
+        {% include "partials/nav.html"%}
+        {% block search-bar %}
+            <form method="get" action="{% url "apps:search" %}">
+                <input name="app" placeholder="Search by app name" />
+            </form>
+        {% endblock search-bar %}
+    </header>
 
 
     {% block content %}{% endblock %}

@@ -4,5 +4,6 @@ from . import views
 app_name = "apps"
 
 urlpatterns = [
-    path("<str:id>", views.app_detail, name="detail")
-]  # url dispatcher 다시 공부하기
+    path("<str:id>", views.app_detail, name="detail"),
+    path("search/", views.search, name="search"),
+]  # url dispatcher

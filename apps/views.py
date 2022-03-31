@@ -80,3 +80,14 @@ def app_detail(request, id):
 
     context = {"app": app}
     return render(request, "apps/detail.html", context)
+
+
+def search(request):
+    # apps/urls.py
+
+    app_name = request.GET.get("app", "Anywhere")
+    # http://127.0.0.1:8000/apps/search/ > 검색창에 Anywhere 뜸
+    app_name = str.capitalize(app_name)
+
+    context = {"app": app_name}
+    return render(request, "apps/search.html", context)
