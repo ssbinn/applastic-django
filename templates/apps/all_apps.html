@@ -6,21 +6,18 @@
 
 {% block content %}
 
-    {% for app in page %}
-    <p>
-        <div>
-          <div>
-            <h5>
-              <a href="{% url "apps:detail" app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
-                {{ app.trackName }}
-              </a>>
-            </h5><br>
-            <p>장르: {{ app.genres }}&emsp;&emsp;버전: {{ app.version }}&emsp;&emsp;차필드: {{ app.ChartField }}</p>
-    
-          </div>
-        </div>
-    </p>
-    {% endfor %}
+    {% if page %}
+        <h5>태그명: {{tag}}</h5>
+
+        {% for app in page %}
+            <ul>
+                <a href="{% url "apps:detail" app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
+                    {{ app.trackName }}
+                </a>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
 
     <!-- pagination -->
     <h5>

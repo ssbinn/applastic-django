@@ -4,6 +4,8 @@ from . import views
 app_name = "apps"
 
 urlpatterns = [
-    path("<str:id>", views.app_detail, name="detail"),
-    path("search/", views.search, name="search"),
+    path("", views.home, name="home"),
+    path("apps/", views.all_apps, name="apps"),
+    path("tag/<str:tag>/", views.tag, name="tag"),
+    path("apps/<str:id>/", views.app_detail, name="detail"),
 ]  # url dispatcher
