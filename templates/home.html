@@ -11,7 +11,7 @@
 
     <h2>Applastic</h2>
         
-    <form method="get" action="{% url "apps:home" %}">
+    <form method="get" action="{% url 'apps:home' %}">
         <div>
         <p>
             <label for="app_name">App</label>
@@ -25,7 +25,7 @@
                 <!-- <button type="button">{{ genre }}</button>
             {% endfor %} -->
             <a href="{% url 'apps:tag' '소셜 네트워킹' %}">
-                <button type="button">소셜 네트워킹</button>
+                <button type="button"># 소셜 네트워킹</button>
             </a>
         </div>
         <div>
@@ -85,6 +85,10 @@
         </div>
 
     </form>
+
+    <h2>앱 8개만 불러오기</h2>
+    <a href="{% url 'apps:apps' %}"><button>모두보기</button></a>
+    
 
 
 {% endblock content %}

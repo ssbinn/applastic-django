@@ -8,4 +8,6 @@ urlpatterns = [
     path("apps/", views.all_apps, name="apps"),
     path("tag/<str:tag>/", views.tag, name="tag"),
     path("apps/<str:id>/", views.app_detail, name="detail"),
+    path("about/", views.about, name="about"),
+    path("analysis/", views.analysis, name="analysis"),
 ]  # url dispatcher

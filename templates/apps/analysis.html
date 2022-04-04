@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Analysis
+{% endblock page_title %}
+
+{% block content %}
+
+<h2>뭐</h2>
+
+
+<iframe src="https://applastic.kb.ap-northeast-2.aws.elastic-cloud.com:9243/app/dashboards#/create?_g=(filters:!(),query:(language:kuery,query:''),refreshInterval:(pause:!t,value:0),time:(from:'2021-12-01T02:24:14.032Z',to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,syncColors:!f,useMargins:!t),panels:!((embeddableConfig:(savedVis:(data:(aggs:!((enabled:!t,id:'1',params:(field:price),schema:metric,type:max),(enabled:!t,id:'2',params:(drop_partials:!f,extended_bounds:(),field:releaseDate,interval:d,min_doc_count:1,scaleMetricValues:!f,timeRange:(from:'2021-12-01T02:24:14.032Z',to:now),useNormalizedEsInterval:!t,used_interval:'1d'),schema:segment,type:date_histogram)),searchSource:(filter:!(),index:'54400520-ac47-11ec-989c-9b784a34878e',query:(language:kuery,query:''))),description:'',id:'',params:(addLegend:!t,addTimeMarker:!f,addTooltip:!t,categoryAxes:!((id:CategoryAxis-1,labels:(filter:!t,show:!t,truncate:100),position:bottom,scale:(type:linear),show:!t,style:(),title:(),type:category)),detailedTooltip:!t,fittingFunction:linear,grid:(categoryLines:!f),labels:(),legendPosition:right,maxLegendLines:1,palette:(name:default,type:palette),radiusRatio:9,seriesParams:!((circlesRadius:1,data:(id:'1',label:'Max%20price'),drawLinesBetweenPoints:!t,interpolate:linear,lineWidth:2,mode:normal,show:!t,showCircles:!t,type:line,valueAxis:ValueAxis-1)),thresholdLine:(color:%23E7664C,show:!f,style:full,value:10,width:1),times:!(),truncateLegend:!t,type:line,valueAxes:!((id:ValueAxis-1,labels:(filter:!f,rotate:0,show:!t,truncate:100),name:LeftAxis-1,position:left,scale:(mode:normal,type:linear),show:!t,style:(),title:(text:'Max%20price'),type:value))),title:'',type:line,uiState:())),gridData:(h:15,i:'357e16f5-047e-4c06-b992-e248ea4a89e8',w:24,x:0,y:0),panelIndex:'357e16f5-047e-4c06-b992-e248ea4a89e8',type:visualization,version:'8.0.0')),query:(language:kuery,query:''),tags:!(),timeRestore:!f,title:'',viewMode:edit)" height="910" width="100%"></iframe>
+
+
+{% endblock content %}

@@ -10,22 +10,7 @@ def home(request):
     app_name = request.GET.get("app", "Anywhere")
     app_name = str.capitalize(app_name)
 
-    # genre_types = [
-    #     "소셜 네트워킹",
-    #     "생산성",
-    #     "게임",
-    #     "라이프 스타일",
-    #     "사진 및 비디오",
-    #     "엔터테인먼트",
-    #     "유틸리티",
-    #     "금융",
-    #     "비즈니스",
-    #     "음식 및 음료",
-    #     "롤플레잉",
-    #     "시뮬레이션",
-    # ]
-
-    context = {"app": app_name}  # , "genre_types": genre_types}
+    context = {"app": app_name}
     return render(request, "home.html", context)
 
 
@@ -132,3 +117,11 @@ def app_detail(request, id):
 
     context = {"app": app}
     return render(request, "apps/detail.html", context)
+
+
+def about(request):
+    return render(request, "apps/about.html")
+
+
+def analysis(request):
+    return render(request, "apps/analysis.html")

@@ -34,6 +34,7 @@
 
     <!-- apps -->
     {% if page %}
+    <h3>구글 플레이스토어와 앱스토어 합친 데이터를 보여줄 곳</h3> 
         {% for app in page %}
             <ul>
                 <a href="{% url 'apps:detail' app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
