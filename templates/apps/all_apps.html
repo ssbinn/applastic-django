@@ -6,31 +6,57 @@
 
 {% block content %}
 
-    {% if page %}
+    <!-- tags -->
+    {% if data_list %}
         <h5>태그명: {{tag}}</h5>
 
+        {% for data in data_list %}
+            <ul>
+                <a href="{% url 'apps:detail' data.id %}">
+                    {{ data.trackName }}
+                </a>
+            </ul>
+        {% endfor %}
+
+        <!-- pagination -->
+        <h5>
+        {% if data_list.has_previous %}
+            <a href="?page={{data_list.previous_page_number}}">Previous</a>
+        {% endif %}
+
+        Page {{data_list.number}} of {{data_list.paginator.num_pages}}
+
+        {% if data_list.has_next %}
+            <a href="?page={{data_list.next_page_number}}">Next</a>
+        {% endif %}
+        </h5>
+    {% endif %}
+
+    <!-- apps -->
+    {% if page %}
         {% for app in page %}
             <ul>
-                <a href="{% url "apps:detail" app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
+                <a href="{% url 'apps:detail' app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
                     {{ app.trackName }}
                 </a>
             </ul>
         {% endfor %}
+
+
+        <!-- pagination -->
+        <h5>
+        {% if page.has_previous %}
+            <a href="?page={{page.previous_page_number}}">Previous</a>
+        {% endif %}
+
+        Page {{page.number}} of {{page.paginator.num_pages}}
+
+        {% if page.has_next %}
+            <a href="?page={{page.next_page_number}}">Next</a>
+        {% endif %}
+        </h5>
+
     {% endif %}
-
-
-    <!-- pagination -->
-    <h5>
-    {% if page.has_previous %}
-        <a href="?page={{page.previous_page_number}}">Previous</a>
-    {% endif %}
-
-    Page {{page.number}} of {{page.paginator.num_pages}}
-
-    {% if page.has_next %}
-        <a href="?page={{page.next_page_number}}">Next</a>
-    {% endif %}
-    </h5>
 
 
 {% endblock %}

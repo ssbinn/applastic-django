@@ -4,20 +4,6 @@ from django.shortcuts import render
 from elasticsearch import Elasticsearch
 
 
-# def genre_API(genre):  # 장르 태그 선택 시 앱 리스트 불러오는 함수
-#     es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
-#     index = es.search(index="chart-apple-iphone-kr-topfree-6005")
-#     size = index["hits"]["total"]
-
-#     resp = es.search(
-#         index="chart-apple-iphone-kr-topfree-6005",
-#         body={"size": size["value"], "query": {"match": {"genres": genre}}},
-#     )
-
-#     for hit in resp["hits"]["hits"]:
-#         return hit["_source"]
-
-
 def home(request):
     # apps/urls.py
 
@@ -55,10 +41,11 @@ def list_API():
     )
 
     list = []
-    i = 1
+    i = 0
     while i < size["value"]:
         temp = resp["hits"]["hits"][i]["_source"]
         temp["id"] = resp["hits"]["hits"][i]["_source"]["trackId"]
+        # temp["genre"] = resp["hits"]["hits"][i]["_source"]["genres"]
 
         list.append(temp)
         i += 1
@@ -83,16 +70,43 @@ def all_apps(request):
         raise Http404
 
 
+def genre_API(genre):  # 장르 태그 선택 시 앱 리스트 불러오는 함수
+    es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
+    index = es.search(index="chart-apple-iphone-kr-topfree-6005")
+
+    resp = es.search(
+        index="chart-apple-iphone-kr-topfree-6005",
+        body={"size": 10000, "query": {"match": {"genres": genre}}},
+    )
+    size = resp["hits"]["total"]["value"]
+
+    list = []
+    i = 0
+    while i < size:
+        if i == size:
+            break
+        temp = resp["hits"]["hits"][i]["_source"]
+        temp["id"] = resp["hits"]["hits"][i]["_source"]["trackId"]
+        list.append(temp)
+        i += 1
+
+    return list
+
+
 def tag(request, tag):
     page = request.GET.get("page", 1)
 
-    data_list = list_API()
+    data_list = genre_API(tag)
+
     paginator = Paginator(data_list, 10, orphans=5)  # per_page: 10
 
-    apps = paginator.page(int(page))  # get_page vs page
+    try:
+        apps = paginator.page(int(page))
 
-    context = {"page": apps, "tag": tag}
-    return render(request, "apps/all_apps.html", context)
+        context = {"data_list": apps, "tag": tag}
+        return render(request, "apps/all_apps.html", context)
+    except EmptyPage:
+        raise Http404
 
 
 def detail_API(id):
