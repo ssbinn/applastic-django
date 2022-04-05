@@ -15,13 +15,20 @@ def home(request):
 
 
 def list_API():
-    es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
+    # es = Elasticsearch(
+    #     hosts=["http://34.64.163.90:9200"], http_auth=("kyj", "210is1024")
+    # )
 
-    index = es.search(index="chart-apple-iphone-kr-topfree-6005")
+    es = Elasticsearch(
+        cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
+        http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
+    )
+
+    index = es.search(index="daytest-apple-iphone-kr-topfree-6014-4")
     size = index["hits"]["total"]
 
     resp = es.search(
-        index="chart-apple-iphone-kr-topfree-6005",
+        index="daytest-apple-iphone-kr-topfree-6014-4",
         body={"size": size["value"], "query": {"match_all": {}}},
     )
 
@@ -56,11 +63,14 @@ def all_apps(request):
 
 
 def genre_API(genre):  # 장르 태그 선택 시 앱 리스트 불러오는 함수
-    es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
-    index = es.search(index="chart-apple-iphone-kr-topfree-6005")
+    es = Elasticsearch(
+        cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
+        http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
+    )
+    index = es.search(index="daytest-apple-iphone-kr-topfree-6014-4")
 
     resp = es.search(
-        index="chart-apple-iphone-kr-topfree-6005",
+        index="daytest-apple-iphone-kr-topfree-6014-4",
         body={"size": 10000, "query": {"match": {"genres": genre}}},
     )
     size = resp["hits"]["total"]["value"]
@@ -95,11 +105,14 @@ def tag(request, tag):
 
 
 def detail_API(id):
-    es = Elasticsearch("http://34.64.163.90:9200", basic_auth=("kyj", "210is1024"))
-    index = es.search(index="chart-apple-iphone-kr-topfree-6005")
+    es = Elasticsearch(
+        cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
+        http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
+    )
+    index = es.search(index="daytest-apple-iphone-kr-topfree-6014-4")
 
     resp = es.search(
-        index="chart-apple-iphone-kr-topfree-6005",
+        index="daytest-apple-iphone-kr-topfree-6014-4",
         body={"query": {"match": {"trackId": id}}},
     )
 

@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django = "==2.2.5"
 requests = "*"
-elasticsearch = "*"
+elasticsearch = "==7.13.4"
 
 [dev-packages]
 flake8 = "*"
