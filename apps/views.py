@@ -15,20 +15,17 @@ def home(request):
 
 
 def list_API():
-    # es = Elasticsearch(
-    #     hosts=["http://34.64.163.90:9200"], http_auth=("kyj", "210is1024")
-    # )
-
     es = Elasticsearch(
         cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
         http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
     )
 
-    index = es.search(index="daytest-apple-iphone-kr-topfree-6014-4")
+    index = es.search(index="testtest-topfree-apple-2022-03-13")
+    # index = es.indices.get_template("topfree-apple-mapping")
     size = index["hits"]["total"]
 
     resp = es.search(
-        index="daytest-apple-iphone-kr-topfree-6014-4",
+        index="testtest-topfree-apple-2022-03-13",
         body={"size": size["value"], "query": {"match_all": {}}},
     )
 
@@ -37,7 +34,6 @@ def list_API():
     while i < size["value"]:
         temp = resp["hits"]["hits"][i]["_source"]
         temp["id"] = resp["hits"]["hits"][i]["_source"]["trackId"]
-        # temp["genre"] = resp["hits"]["hits"][i]["_source"]["genres"]
 
         list.append(temp)
         i += 1
@@ -67,10 +63,10 @@ def genre_API(genre):  # 장르 태그 선택 시 앱 리스트 불러오는 함
         cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
         http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
     )
-    index = es.search(index="daytest-apple-iphone-kr-topfree-6014-4")
+    index = es.search(index="testtest-topfree-apple-2022-03-13")
 
     resp = es.search(
-        index="daytest-apple-iphone-kr-topfree-6014-4",
+        index="testtest-topfree-apple-2022-03-13",
         body={"size": 10000, "query": {"match": {"genres": genre}}},
     )
     size = resp["hits"]["total"]["value"]
@@ -109,10 +105,10 @@ def detail_API(id):
         cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
         http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
     )
-    index = es.search(index="daytest-apple-iphone-kr-topfree-6014-4")
+    index = es.search(index="testtest-topfree-apple-2022-03-13")
 
     resp = es.search(
-        index="daytest-apple-iphone-kr-topfree-6014-4",
+        index="testtest-topfree-apple-2022-03-13",
         body={"query": {"match": {"trackId": id}}},
     )
 
@@ -124,6 +120,7 @@ def app_detail(request, id):
     # apps/urls.py
 
     app = detail_API(id)
+    print(app)
 
     if app == None:  # url에 엉뚱한 앱 고유 id를 검색했을 때
         raise Http404
