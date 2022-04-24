@@ -6,17 +6,17 @@
 
 {% block content %}
 
-<div>
-    <h1>{{app.trackName}}</h2>
-    <h3>{{app.description}}</h4>
-</div>
-
-<div>
-    <h2>장르</h2>
+    <!-- 앱 상세 페이지 -->
+    {{app.artworkUrl60}}
+    {{app.trackName}}
+    {{app.Ranking}}
+    {{app.price}}
+    <h3>장르</h3>
     <ul>
-    {% for a in app.genres %}
-        <li>{{a}}</li>
-    {% endfor %}
+        {% for genre in app.genres %}
+        <li>{{genre}}</li>
+        {% endfor %}
     </ul>
-</div>    
+        
+    {{app.description}}
 {% endblock content %}

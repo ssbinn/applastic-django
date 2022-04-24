@@ -6,11 +6,42 @@
 
 {% block content %}
 
-    <!-- search -->
-    
+    <!-- DATA 메뉴 - 모든 앱 리스트 -->
+    {% if page %}
+        {% for app in page %}
+            <ul>
+                {{app.artworkUrl60}}
+                <a href="{% url 'apps:detail' app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
+                    {{ app.trackName }}
+                </a>
+                {{app.Ranking}}
+            </ul>
+        {% endfor %}
+
+        <!-- pagination -->
+        <h5>
+        {% if page.has_previous %}
+            <a href="?page={{page.previous_page_number}}">Previous</a>
+        {% endif %}
+
+        Page {{page.number}} of {{page.paginator.num_pages}}
+
+        {% if page.has_next %}
+            <a href="?page={{page.next_page_number}}">Next</a>
+        {% endif %}
+        </h5>
+
+    {% endif %}
+
+
+    <!-- SEARCH -->
     {% if keyword %}
-        <h2>{{keyword}}를 검색함</h2>
-        
+        <h2>'{{keyword}}'에 대한 검색결과입니다.</h2>
+
+        {% if no_result %}
+            <h1>검색된 결과가 없습니다.<br>검색어를 변경해보세요.</h1>
+        {% endif %}
+
         {% for ans in answer %}
             <ul>
                 <a href="{% url 'apps:detail' ans.id %}">  
@@ -19,24 +50,22 @@
             </ul>
         {% endfor %}
 
-    {% else %}
-        <h2>검색어를 입력해주세요</h2>
-
         <!-- pagination -->
-        <!-- <h5>
-            {% if answer.has_previous %}
-                <a href="?page={{answer.previous_page_number}}">Previous</a>
-            {% endif %}
-    
-            Page {{answer.number}} of {{answer.paginator.num_pages}}
-    
-            {% if answer.has_next %}
-                <a href="?page={{answer.next_page_number}}">Next</a>
-            {% endif %}
-        </h5> -->
+        <h5>
+        {% if answer.has_previous %}
+            <a href="?page={{answer.previous_page_number}}">Previous</a>
+        {% endif %}
+
+        Page {{answer.number}} of {{answer.paginator.num_pages}}
+
+        {% if answer.has_next %}
+            <a href="?page={{answer.next_page_number}}">Next</a>
+        {% endif %}
+        </h5>
     {% endif %}
 
-    <!-- tags -->
+
+    <!-- TAG -->
     {% if data_list %}
         <h5>태그명: {{tag}}</h5>
 
@@ -61,33 +90,5 @@
         {% endif %}
         </h5>
     {% endif %}
-
-    <!-- apps -->
-    {% if page %}
-    <h3>구글 플레이스토어와 앱스토어 합친 데이터를 보여줄 곳</h3> 
-        {% for app in page %}
-            <ul>
-                <a href="{% url 'apps:detail' app.id %}">  <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
-                    {{ app.trackName }}
-                </a>
-            </ul>
-        {% endfor %}
-
-
-        <!-- pagination -->
-        <h5>
-        {% if page.has_previous %}
-            <a href="?page={{page.previous_page_number}}">Previous</a>
-        {% endif %}
-
-        Page {{page.number}} of {{page.paginator.num_pages}}
-
-        {% if page.has_next %}
-            <a href="?page={{page.next_page_number}}">Next</a>
-        {% endif %}
-        </h5>
-
-    {% endif %}
-
 
 {% endblock %}

@@ -4,92 +4,135 @@
     Home
 {% endblock page_title %}
 
-<!-- home에는 정중앙에 검색창이 있고, 헤더에 검색창이 없어야 해  -->
+<!-- 메인 페이지  -->
+<!-- 헤더에 구현된 검색창을 보이지 않게 함, 페이지 중앙에 헤더 검색창과 모양이 다른 검색창(form)을 두기 위함 -->
 {% block search-bar %}
 {% endblock search-bar %}
 
 {% block content %}
 
-    <!-- 검색 기능 구현 1번 -->
-    <!-- 검색창에 검색어를 입력하고 엔터 혹은 검색버튼(만들기)을 눌렀을 때, 검색결과를 보여줄 것 (보여주는 곳은 app_list.html) -->
-    <form method="post" action="{% url 'apps:search' %}">
+    <!-- SEARCH -->
+    <!-- 검색창에 입력한 뒤 enter를 누를 시 검색 결과를 보여줌 (결과는 app_list.html에서 처리) -->
+    <form method="POST" action="{% url 'apps:search' %}">
         {% csrf_token %}
         <div>
         <p>
             <label for="app_name">Search for</label>
-            <input name="searched" placeholder="home" />
+            <input name="searched" placeholder="app name or keyword" />
         </p>
         </div>
     </form>
-
-    <!-- tag 처리 -->
-    <div>
-        <!-- {% for genre in genre_types %} -->
-            <!-- <button type="button">{{ genre }}</button>
-        {% endfor %} -->
-        <a href="{% url 'apps:tag' '보건' %}">
-            <button type="button"># 보건</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '생산성' %}">
-            <button type="button">생산성</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '게임' %}">
-            <button type="button">게임</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '라이프 스타일' %}">
-            <button type="button">라이프 스타일</button>
-        </a>
-    </div>
+    
+    <!-- TAG -->
     <div>
         <a href="{% url 'apps:tag' '사진 및 비디오' %}">
-            <button type="button">사진 및 비디오</button>
+            <button type="button"># 사진 및 비디오</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '소셜 네트워킹' %}">
+            <button type="button"># 소셜 네트워킹</button>
         </a>
     </div>
     <div>
         <a href="{% url 'apps:tag' '엔터테인먼트' %}">
-            <button type="button">엔터테인먼트</button>
+            <button type="button"># 엔터테인먼트</button>
         </a>
     </div>
     <div>
-        <a href="{% url 'apps:tag' '유틸리티' %}">
-            <button type="button">유틸리티</button>
+        <a href="{% url 'apps:tag' '라이프 스타일' %}">
+            <button type="button"># 라이프 스타일</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '여행' %}">
+            <button type="button"># 여행</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '의료' %}">
+            <button type="button"># 의료</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '건강 및 피트니스' %}">
+            <button type="button"># 건강 및 피트니스</button>
         </a>
     </div>
     <div>
         <a href="{% url 'apps:tag' '금융' %}">
-            <button type="button">금융</button>
+            <button type="button"># 금융</button>
         </a>
     </div>
     <div>
-        <a href="{% url 'apps:tag' '비즈니스' %}">
-            <button type="button">비즈니스</button>
+        <a href="{% url 'apps:tag' '쇼핑' %}">
+            <button type="button"># 쇼핑</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '생산성' %}">
+            <button type="button"># 생산성</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '도서' %}">
+            <button type="button"># 도서</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '음악' %}">
+            <button type="button"># 음악</button>
         </a>
     </div>
     <div>
         <a href="{% url 'apps:tag' '음식 및 음료' %}">
-            <button type="button">음식 및 음료</button>
+            <button type="button"># 음식 및 음료</button>
         </a>
     </div>
     <div>
-        <a href="{% url 'apps:tag' '롤플레잉' %}">
-            <button type="button">롤플레잉</button>
+        <a href="{% url 'apps:tag' '게임' %}">
+            <button type="button"># 게임</button>
         </a>
     </div>
     <div>
-        <a href="{% url 'apps:tag' '시뮬레이션' %}">
-            <button type="button">시뮬레이션</button>
+        <a href="{% url 'apps:tag' '비지니스' %}">
+            <button type="button"># 비지니스</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '유틸리티' %}">
+            <button type="button"># 유틸리티</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '내비게이션' %}">
+            <button type="button"># 내비게이션</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '뉴스' %}">
+            <button type="button"># 뉴스</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '참고' %}">
+            <button type="button"># 참고</button>
         </a>
     </div>
 
-    <h2>앱 10개만 불러오기</h2>
-    <a href="{% url 'apps:apps' %}"><button>모두보기</button></a>
-    
-
+    <!-- PREVIEW -->
+    <h1>Preview</h1>
+    {% if app_preview %}
+        <a href="{% url 'apps:apps' %}"><button>More</button></a>
+        {% for apps in app_preview %}
+            <ul>
+                {{apps.artworkUrl60}}
+                <a href="{% url 'apps:detail' apps.id %}">  
+                    {{ apps.trackName }}
+                </a>
+                {{apps.Ranking}}
+            </ul>
+        {% endfor %}
+    {% endif %}
 
 {% endblock content %}
