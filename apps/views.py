@@ -43,19 +43,27 @@ def search_API(keyword):
     return list
 
 
-def search(request, keyword):
-    page = request.GET.get("page", 1)
-    answer = search_API(keyword)
+# 검색 기능 구현 2번
+# index 내에 검색한 내용이 있는 지 확인하고, 그 결과를 app_list.html에 반환
+def search(request):
+    if request.method == "POST":
+        keyword = request.POST["searched"]  # 검색창에 입력된 내용 저장
+        answer = search_API(keyword)
 
-    paginator = Paginator(answer, 10, orphans=5)  # per_page: 10
-
-    try:
-        apps = paginator.page(int(page))
-
-        context = {"answer": apps, "keyword": keyword}
+        context = {"keyword": keyword, "answer": answer}
         return render(request, "apps/app_list.html", context)
-    except EmptyPage:
-        raise Http404
+
+    # page = request.GET.get("page", 1)
+    # answer = search_API(keyword)
+
+    # paginator = Paginator(answer, 10, orphans=5)  # per_page: 10
+
+    # try:
+    #     apps = paginator.page(int(page))
+
+    #     return render(request, "apps/app_list.html", context)
+    # except EmptyPage:
+    #     raise Http404
 
 
 def list_API():

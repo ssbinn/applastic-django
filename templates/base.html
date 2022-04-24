@@ -14,11 +14,14 @@
 <body>
     <header>
         {% include "partials/nav.html"%}
+        <!-- 사이트 모든 곳에 네비게이션 바에 검색창을 둘 건데, 메인 페이지(home.html) 정가운데에 눈에 띄는 검색창을 두고싶어서 form을 base.html에 두고, home.html에서 아래의 form을 사용하지 않고 다른 form을 작성함-->
         {% block search-bar %}
-            <form method="get" action="{% url 'apps:search' 'keyword' %}">
+            <form method="post" action="{% url 'apps:search' %}">
+                {% csrf_token %}
                 <div>
                 <p>
-                    <input name="app" placeholder="app name or keyword" />
+                    <label for="app_name">Search for</label>
+                    <input name="searched" placeholder="base" />
                 </p>
                 </div>
             </form>

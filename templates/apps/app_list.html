@@ -8,7 +8,7 @@
 
     <!-- search -->
     
-    {% if answer %}
+    {% if keyword %}
         <h2>{{keyword}}를 검색함</h2>
         
         {% for ans in answer %}
@@ -19,8 +19,11 @@
             </ul>
         {% endfor %}
 
+    {% else %}
+        <h2>검색어를 입력해주세요</h2>
+
         <!-- pagination -->
-        <h5>
+        <!-- <h5>
             {% if answer.has_previous %}
                 <a href="?page={{answer.previous_page_number}}">Previous</a>
             {% endif %}
@@ -30,7 +33,7 @@
             {% if answer.has_next %}
                 <a href="?page={{answer.next_page_number}}">Next</a>
             {% endif %}
-        </h5>
+        </h5> -->
     {% endif %}
 
     <!-- tags -->

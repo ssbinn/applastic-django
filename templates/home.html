@@ -10,11 +10,14 @@
 
 {% block content %}
 
-    <form method="get" action="{% url 'apps:search' 'keyword' %}">
+    <!-- 검색 기능 구현 1번 -->
+    <!-- 검색창에 검색어를 입력하고 엔터 혹은 검색버튼(만들기)을 눌렀을 때, 검색결과를 보여줄 것 (보여주는 곳은 app_list.html) -->
+    <form method="post" action="{% url 'apps:search' %}">
+        {% csrf_token %}
         <div>
         <p>
             <label for="app_name">Search for</label>
-            <input name="app" placeholder="app name or keyword" />
+            <input name="searched" placeholder="home" />
         </p>
         </div>
     </form>
