@@ -4,89 +4,87 @@
     Home
 {% endblock page_title %}
 
+<!-- home에는 정중앙에 검색창이 있고, 헤더에 검색창이 없어야 해  -->
 {% block search-bar %}
 {% endblock search-bar %}
 
 {% block content %}
 
-    <h2>Applastic</h2>
-        
-    <form method="get" action="{% url 'apps:home' %}">
+    <form method="get" action="{% url 'apps:search' 'keyword' %}">
         <div>
         <p>
-            <label for="app_name">App</label>
-            <input value="{{app}}" id="app" name="app" placeholder="Search by app name" />
+            <label for="app_name">Search for</label>
+            <input name="app" placeholder="app name or keyword" />
         </p>
         </div>
-
-        <!-- tag 처리 -->
-        <div>
-            <!-- {% for genre in genre_types %} -->
-                <!-- <button type="button">{{ genre }}</button>
-            {% endfor %} -->
-            <a href="{% url 'apps:tag' '소셜 네트워킹' %}">
-                <button type="button"># 소셜 네트워킹</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '생산성' %}">
-                <button type="button">생산성</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '게임' %}">
-                <button type="button">게임</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '라이프 스타일' %}">
-                <button type="button">라이프 스타일</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '사진 및 비디오' %}">
-                <button type="button">사진 및 비디오</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '엔터테인먼트' %}">
-                <button type="button">엔터테인먼트</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '유틸리티' %}">
-                <button type="button">유틸리티</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '금융' %}">
-                <button type="button">금융</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '비즈니스' %}">
-                <button type="button">비즈니스</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '음식 및 음료' %}">
-                <button type="button">음식 및 음료</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '롤플레잉' %}">
-                <button type="button">롤플레잉</button>
-            </a>
-        </div>
-        <div>
-            <a href="{% url 'apps:tag' '시뮬레이션' %}">
-                <button type="button">시뮬레이션</button>
-            </a>
-        </div>
-
     </form>
 
-    <h2>앱 8개만 불러오기</h2>
+    <!-- tag 처리 -->
+    <div>
+        <!-- {% for genre in genre_types %} -->
+            <!-- <button type="button">{{ genre }}</button>
+        {% endfor %} -->
+        <a href="{% url 'apps:tag' '보건' %}">
+            <button type="button"># 보건</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '생산성' %}">
+            <button type="button">생산성</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '게임' %}">
+            <button type="button">게임</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '라이프 스타일' %}">
+            <button type="button">라이프 스타일</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '사진 및 비디오' %}">
+            <button type="button">사진 및 비디오</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '엔터테인먼트' %}">
+            <button type="button">엔터테인먼트</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '유틸리티' %}">
+            <button type="button">유틸리티</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '금융' %}">
+            <button type="button">금융</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '비즈니스' %}">
+            <button type="button">비즈니스</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '음식 및 음료' %}">
+            <button type="button">음식 및 음료</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '롤플레잉' %}">
+            <button type="button">롤플레잉</button>
+        </a>
+    </div>
+    <div>
+        <a href="{% url 'apps:tag' '시뮬레이션' %}">
+            <button type="button">시뮬레이션</button>
+        </a>
+    </div>
+
+    <h2>앱 10개만 불러오기</h2>
     <a href="{% url 'apps:apps' %}"><button>모두보기</button></a>
     
 

@@ -5,13 +5,57 @@ from elasticsearch import Elasticsearch
 
 
 def home(request):
-    # apps/urls.py
 
-    app_name = request.GET.get("app", "Anywhere")
-    app_name = str.capitalize(app_name)
+    return render(request, "home.html")
 
-    context = {"app": app_name}
-    return render(request, "home.html", context)
+
+def search_API(keyword):
+    es = Elasticsearch(
+        cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
+        http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
+    )
+    index = es.search(index="ssbinn_index")
+
+    resp = es.search(
+        index="ssbinn_index",
+        body={
+            "size": 10000,
+            "query": {
+                "multi_match": {
+                    "query": keyword,
+                    "fields": ["trackName", "description"],
+                }
+            },
+        },
+    )
+    size = resp["hits"]["total"]["value"]
+
+    list = []
+    i = 0
+    while i < size:
+        if i == size:
+            break
+        temp = resp["hits"]["hits"][i]["_source"]
+        temp["id"] = resp["hits"]["hits"][i]["_source"]["trackId"]
+        list.append(temp)
+        i += 1
+
+    return list
+
+
+def search(request, keyword):
+    page = request.GET.get("page", 1)
+    answer = search_API(keyword)
+
+    paginator = Paginator(answer, 10, orphans=5)  # per_page: 10
+
+    try:
+        apps = paginator.page(int(page))
+
+        context = {"answer": apps, "keyword": keyword}
+        return render(request, "apps/app_list.html", context)
+    except EmptyPage:
+        raise Http404
 
 
 def list_API():
@@ -20,12 +64,11 @@ def list_API():
         http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
     )
 
-    index = es.search(index="testtest-topfree-apple-2022-03-13")
-    # index = es.indices.get_template("topfree-apple-mapping")
+    index = es.search(index="ssbinn_index")
     size = index["hits"]["total"]
 
     resp = es.search(
-        index="testtest-topfree-apple-2022-03-13",
+        index="ssbinn_index",
         body={"size": size["value"], "query": {"match_all": {}}},
     )
 
@@ -42,7 +85,6 @@ def list_API():
 
 
 def all_apps(request):
-    # apps/urls.py
 
     page = request.GET.get("page", 1)
     app_list = list_API()
@@ -53,7 +95,7 @@ def all_apps(request):
         apps = paginator.page(int(page))  # get_page vs page
 
         context = {"page": apps}
-        return render(request, "apps/all_apps.html", context)
+        return render(request, "apps/app_list.html", context)
     except EmptyPage:  # url에 엉뚱한 page number를 검색했을 때
         raise Http404
 
@@ -63,10 +105,10 @@ def genre_API(genre):  # 장르 태그 선택 시 앱 리스트 불러오는 함
         cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
         http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
     )
-    index = es.search(index="testtest-topfree-apple-2022-03-13")
+    index = es.search(index="ssbinn_index")
 
     resp = es.search(
-        index="testtest-topfree-apple-2022-03-13",
+        index="ssbinn_index",
         body={"size": 10000, "query": {"match": {"genres": genre}}},
     )
     size = resp["hits"]["total"]["value"]
@@ -95,7 +137,7 @@ def tag(request, tag):
         apps = paginator.page(int(page))
 
         context = {"data_list": apps, "tag": tag}
-        return render(request, "apps/all_apps.html", context)
+        return render(request, "apps/app_list.html", context)
     except EmptyPage:
         raise Http404
 
@@ -105,10 +147,10 @@ def detail_API(id):
         cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
         http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
     )
-    index = es.search(index="testtest-topfree-apple-2022-03-13")
+    index = es.search(index="ssbinn_index")
 
     resp = es.search(
-        index="testtest-topfree-apple-2022-03-13",
+        index="ssbinn_index",
         body={"query": {"match": {"trackId": id}}},
     )
 
@@ -117,20 +159,14 @@ def detail_API(id):
 
 
 def app_detail(request, id):
-    # apps/urls.py
 
     app = detail_API(id)
-    print(app)
 
     if app == None:  # url에 엉뚱한 앱 고유 id를 검색했을 때
         raise Http404
 
     context = {"app": app}
     return render(request, "apps/detail.html", context)
-
-
-def about(request):
-    return render(request, "apps/about.html")
 
 
 def analysis(request):

@@ -6,6 +6,33 @@
 
 {% block content %}
 
+    <!-- search -->
+    
+    {% if answer %}
+        <h2>{{keyword}}를 검색함</h2>
+        
+        {% for ans in answer %}
+            <ul>
+                <a href="{% url 'apps:detail' ans.id %}">  
+                    {{ ans.trackName }}
+                </a>
+            </ul>
+        {% endfor %}
+
+        <!-- pagination -->
+        <h5>
+            {% if answer.has_previous %}
+                <a href="?page={{answer.previous_page_number}}">Previous</a>
+            {% endif %}
+    
+            Page {{answer.number}} of {{answer.paginator.num_pages}}
+    
+            {% if answer.has_next %}
+                <a href="?page={{answer.next_page_number}}">Next</a>
+            {% endif %}
+        </h5>
+    {% endif %}
+
     <!-- tags -->
     {% if data_list %}
         <h5>태그명: {{tag}}</h5>
