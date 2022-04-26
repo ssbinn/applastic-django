@@ -117,20 +117,20 @@ def search_API(keyword):
 
 def search(request):
     if request.method == "POST":
-        keyword = request.POST["searched"]  # 검색창에 입력된 내용 저장
+        keyword = request.POST["searched"]  # 검색창에 입력된 내용 저장 
         answer = search_API(keyword)  # index 내에 검색한 내용이 있는 지 확인
+       
 
-        page = request.GET.get("page", 1)
-        apps = pagenation(answer, page)
+        print(len(answer))
 
-        if not answer:  # 검색 결과가 없을 경우
+        if not answer:  # 검색 결과가 없어서 빈 리스트일 경우
             no_result = True
-            context = {"keyword": keyword, "answer": apps, "no_result": no_result}
+            context = {"keyword": keyword, "answer": answer, "no_result": no_result}
         else:
-            context = {"keyword": keyword, "answer": apps}
+            context = {"keyword": keyword, "answer": answer}
 
+        print(render(request, "apps/app_list.html", context))
         return render(request, "apps/app_list.html", context)
-
 
 def genre_API(genre):  # 장르 태그 선택 시 app list를 불러오는 함수
     es = cloud_auth()

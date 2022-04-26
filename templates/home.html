@@ -10,129 +10,97 @@
 {% endblock search-bar %}
 
 {% block content %}
-
-    <!-- SEARCH -->
     <!-- 검색창에 입력한 뒤 enter를 누를 시 검색 결과를 보여줌 (결과는 app_list.html에서 처리) -->
-    <form method="POST" action="{% url 'apps:search' %}">
-        {% csrf_token %}
+    <div class="container mx-auto w-7/12 h-50vh mt-32">
         <div>
-        <p>
-            <label for="app_name">Search for</label>
-            <input name="searched" placeholder="app name or keyword" />
-        </p>
+            <!-- SEARCH -->
+            <form method="POST" action="{% url 'apps:search' %}">
+                {% csrf_token %}
+                <input name="searched" class="border border-gray-300 w-96 px-5 py-3 text-sm font-medium placeholder-gray-400 rounded-full shadow-sm focus:outline-none" placeholder="찾고 싶은 앱을 검색해보세요." />
+            </form>
         </div>
-    </form>
-    
-    <!-- TAG -->
-    <div>
-        <a href="{% url 'apps:tag' '사진 및 비디오' %}">
-            <button type="button"># 사진 및 비디오</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '소셜 네트워킹' %}">
-            <button type="button"># 소셜 네트워킹</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '엔터테인먼트' %}">
-            <button type="button"># 엔터테인먼트</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '라이프 스타일' %}">
-            <button type="button"># 라이프 스타일</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '여행' %}">
-            <button type="button"># 여행</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '의료' %}">
-            <button type="button"># 의료</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '건강 및 피트니스' %}">
-            <button type="button"># 건강 및 피트니스</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '금융' %}">
-            <button type="button"># 금융</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '쇼핑' %}">
-            <button type="button"># 쇼핑</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '생산성' %}">
-            <button type="button"># 생산성</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '도서' %}">
-            <button type="button"># 도서</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '음악' %}">
-            <button type="button"># 음악</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '음식 및 음료' %}">
-            <button type="button"># 음식 및 음료</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '게임' %}">
-            <button type="button"># 게임</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '비지니스' %}">
-            <button type="button"># 비지니스</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '유틸리티' %}">
-            <button type="button"># 유틸리티</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '내비게이션' %}">
-            <button type="button"># 내비게이션</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '뉴스' %}">
-            <button type="button"># 뉴스</button>
-        </a>
-    </div>
-    <div>
-        <a href="{% url 'apps:tag' '참고' %}">
-            <button type="button"># 참고</button>
-        </a>
-    </div>
 
-    <!-- PREVIEW -->
-    <h1>Preview</h1>
-    {% if app_preview %}
-        <a href="{% url 'apps:apps' %}"><button>More</button></a>
-        {% for apps in app_preview %}
+        <div class="tag-section mt-2">
             <ul>
-                {{apps.artworkUrl60}}
-                <a href="{% url 'apps:detail' apps.id %}">  
-                    {{ apps.trackName }}
-                </a>
-                {{apps.Ranking}}
+                <li class="tag-item m-1">
+                    <a href="{% url 'apps:tag' '사진 및 비디오' %}">#사진 및 비디오</a>
+                </li>
+                <li class="tag-item"> 
+                    <a href="{% url 'apps:tag' '소셜 네트워킹' %}">#소셜 네트워킹</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '엔터테인먼트' %}">#엔터테인먼트</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '라이프 스타일' %}">#라이프 스타일</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '여행' %}">#여행</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '의료' %}">#의료</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '건강 및 피트니스' %}">#건강 및 피트니스</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '금융' %}">#금융</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '쇼핑' %}">#쇼핑</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '생산성' %}">#생산성</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '도서' %}">#도서</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '음악' %}">#음악</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '음식 및 음료' %}">#음식 및 음료</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '게임' %}">#게임</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '비지니스' %}">#비지니스</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '유틸리티' %}">#유틸리티</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '내비게이션' %}">#내비게이션</a>
+                </li>
+                <li class="tag-item">
+                    <a href="{% url 'apps:tag' '뉴스' %}">#뉴스</a>
+                </li>
             </ul>
-        {% endfor %}
-    {% endif %}
+        </div>
+    </div>
+    
+    <div class="container mx-auto w-8/12">
+        <h1>Preview</h1>
+        <button>
+            <a href="{% url 'apps:apps' %}">More</a>
+        </button>
+        
+        <div class="flex flex-wrap">
+            {% for app in app_preview %}
+                <div class="w-1/5 mb-10 px-2">
+                    <div class="border border-gray-300 w-48 h-48 mb-2 rounded-3xl" style="background-image: url({{app.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
+                    <div>
+                        <span class="text-sm">
+                            <a href="{% url 'apps:detail' app.id %}">{{ app.trackName }}</a>
+                        </span>
+                    </div>
+                    <span class="text-sm font-weight:800 flex items-center">
+                        <img class="w-4 h-4 text-red-800 mr-1" src="https://user-images.githubusercontent.com/83692497/165233199-6a088ecb-a25f-4bde-ab9d-d6326e458073.svg"> {{app.Ranking}}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock content %}

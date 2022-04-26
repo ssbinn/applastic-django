@@ -1,4 +1,15 @@
-// @tailwind: directive를 위한 규칙같은 것
 @tailwind base;
 @tailwind components;
+
+.nav-link {
+    @apply ml-8 border-b-2 border-white hover:text-teal-500 h-full flex items-center;
+
+    a {
+        @apply py-6 px-5;
+    }
+}
+.tag-item {
+    @apply inline-flex bg-[#f1f3f5] rounded-full m-1 px-3 py-1 text-xs font-bold;
+}
+
 @tailwind utilities;
