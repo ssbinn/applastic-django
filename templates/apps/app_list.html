@@ -5,61 +5,43 @@
 {% endblock page_title %}
 
 {% block content %}
-    <!-- DATA 메뉴 - 모든 앱 리스트 -->
-    <div class="container max-w-full">
-        {% if page %}
-            <div class="">
-                {% for app in page %}
-                    <div class="border border-gray-300 w-36 h-36 mb-2 rounded-3xl" style="background-image: url({{app.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
-                    <div>
+    <!-- DATA 메뉴 - 모든 앱 리스트를 볼 수 있음 -->
+    <div class="container mx-auto mt-40 w-10/12 pb-10">
+    <h1>모든 앱을 ...</h1>
+    {% if page %}
+        <div class="flex flex-wrap justify-center">
+            {% for app in page %}
+                <div class="w-1/6 mb-4 px-2"> 
+                    <div class="border border-gray-300 w-40 h-40 mb-2 rounded-3xl" style="background-image: url({{app.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
+                    <div class="w-1/2 truncate">
                         <span class="text-sm">
                             <a href="{% url 'apps:detail' app.id %}">{{ app.trackName }}</a> <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
                         </span>
                     </div>
-                    <span class="text-sm font-weight:800 flex items-center">
+                    <span class="text-sm flex items-center">
                         <img class="w-4 h-4 text-red-800 mr-1" src="https://user-images.githubusercontent.com/83692497/165233199-6a088ecb-a25f-4bde-ab9d-d6326e458073.svg"> {{app.Ranking}}
                     </span>
-                {% endfor %}
-            </div>
-
-            <!-- pagination -->
-            <div class="flex items-center">
-                {% if page.has_previous %}
-                    <a href="?page={{page.previous_page_number}}"><i class="fas fa-arrow-left fa-lg"></i></a>
-                {% endif %}
-
-                <span class="mx-2">Page {{page.number}} of {{page.paginator.num_pages}}</span>
-
-                {% if page.has_next %}
-                    <a href="?page={{page.next_page_number}}"><i class="fas fa-arrow-right fa-lg"></i></a>
-                {% endif %}
-            </div>
-        {% endif %}
-    </div>    
-    
-
-
-    <!-- SEARCH -->
-    {% if keyword %}
-        <h2>'{{keyword}}'에 대한 검색결과입니다.</h2>
-
-        {% if no_result %}  <!-- 입력된 검색어의 결과가 없는 경우 -->
-            <h1>검색된 결과가 없습니다.<br>검색어를 변경해보세요.</h1>
-        {% endif %}
-
-        {% for ans in answer %}
-            <ul>
-                <a href="{% url 'apps:detail' ans.id %}">  
-                    {{ ans.trackName }}
-                </a>
-            </ul>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
 
         <!-- pagination -->
-        {% if not no_result %}  
+        <div class="flex justify-center mt-4 text-md">
+            {% if page.has_previous %}
+            <a href="?page={{page.previous_page_number}}" class="text-teal-400"><i class="fas fa-arrow-left fa-lg"></i></a>
+            {% endif %}
             
-        {% endif %}    
+            <span class="mx-2">Page {{page.number}} of {{page.paginator.num_pages}}</span>
+            
+            {% if page.has_next %}
+            <a href="?page={{page.next_page_number}}" class="text-teal-400"><i class="fas fa-arrow-right fa-lg"></i></a>
+            {% endif %}
+        </div>
+        
+    </div>
     {% endif %}
+        
+        
 
     <!-- TAG -->
     {% if data_list %}

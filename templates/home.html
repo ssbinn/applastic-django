@@ -10,17 +10,15 @@
 {% endblock search-bar %}
 
 {% block content %}
-    <!-- 검색창에 입력한 뒤 enter를 누를 시 검색 결과를 보여줌 (결과는 app_list.html에서 처리) -->
-    <div class="container mx-auto w-7/12 h-50vh mt-32">
-        <div>
-            <!-- SEARCH -->
-            <form method="POST" action="{% url 'apps:search' %}">
-                {% csrf_token %}
-                <input name="searched" class="border border-gray-300 w-96 px-5 py-3 text-sm font-medium placeholder-gray-400 rounded-full shadow-sm focus:outline-none" placeholder="찾고 싶은 앱을 검색해보세요." />
-            </form>
+    <!-- 메인 페이지 중앙 검색창-->
+    <div class="container mx-auto h-50vh w-8/12 py-28 mb-2">
+        <div class="flex justify-center">
+            <form class="w-full max-w-xl" method="get" action="{% url 'apps:search' %}">
+                <input name="q" class="w-full border border-gray-300 ring-1 ring-gray-700 px-8 py-4 text-sm font-medium placeholder-gray-400 rounded-full shadow-sm focus:outline-none focus:border-gray-200" placeholder="찾고 싶은 앱을 검색해보세요." />
+            </form> 
         </div>
 
-        <div class="tag-section mt-2">
+        <div class="tag-section flex justify-center mt-5">
             <ul>
                 <li class="tag-item m-1">
                     <a href="{% url 'apps:tag' '사진 및 비디오' %}">#사진 및 비디오</a>
@@ -81,22 +79,24 @@
     </div>
     
     <div class="container mx-auto w-8/12">
-        <h1>Preview</h1>
-        <button>
-            <a href="{% url 'apps:apps' %}">More</a>
-        </button>
+        <div class="flex flex-wrap justify-between px-3 mb-4 border-b">
+            <h1 class="text-gray-600 text-2xl font-medium mb-2">Preview</h1>
+            <button class="text-xl">
+                <a href="{% url 'apps:apps' %}">More</a>
+            </button>
+        </div>
         
         <div class="flex flex-wrap">
             {% for app in app_preview %}
                 <div class="w-1/5 mb-10 px-2">
-                    <div class="border border-gray-300 w-48 h-48 mb-2 rounded-3xl" style="background-image: url({{app.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
+                    <div class="border border-gray-300 w-44 h-44 mb-2 rounded-3xl" style="background-image: url({{app.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
                     <div>
                         <span class="text-sm">
                             <a href="{% url 'apps:detail' app.id %}">{{ app.trackName }}</a>
                         </span>
                     </div>
-                    <span class="text-sm font-weight:800 flex items-center">
-                        <img class="w-4 h-4 text-red-800 mr-1" src="https://user-images.githubusercontent.com/83692497/165233199-6a088ecb-a25f-4bde-ab9d-d6326e458073.svg"> {{app.Ranking}}
+                    <span class="text-sm flex items-center">
+                        <img class="w-4 h-4 mr-1" src="https://user-images.githubusercontent.com/83692497/165233199-6a088ecb-a25f-4bde-ab9d-d6326e458073.svg"> {{app.Ranking}}
                     </span>
                 </div>
             {% endfor %}

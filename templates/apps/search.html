@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Search
+{% endblock page_title %}
+
+{% block content %}
+
+    {% if search_query %}
+        <h2>'{{search_query}}'에 대한 검색결과입니다.</h2>
+
+        {% if answer %}
+            {% for ans in answer %}
+                <ul>
+                    <a href="{% url 'apps:detail' ans.id %}">  
+                        {{ ans.trackName }}
+                    </a>
+                </ul>
+            {% endfor %}
+
+            <!-- pagination -->
+            {% if answer.has_previous %}
+                <a href="{{ full_url }}&page={{answer.previous_page_number}}"><i class="fas fa-arrow-left fa-lg"></i></a>
+            {% endif %}
+
+            <span class="mx-2">Page {{answer.number}} of {{answer.paginator.num_pages}}</span>
+
+            {% if answer.has_next %}
+                <a href="{{ full_url }}&page={{answer.next_page_number}}"><i class="fas fa-arrow-right fa-lg"></i></a>
+            {% endif %}
+        {% else %}
+            <h1>검색된 결과가 없습니다.<br>검색어를 변경해보세요.</h1>
+        {% endif%}
+
+    {% else %}
+        <h1>검색어를 입력해주세요.</h1>
+    {% endif %}
+
+{% endblock %}

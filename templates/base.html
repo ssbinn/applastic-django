@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com/"></script>
 </head>
 <body class="text-gray-800 mt-24">
-    <header class="container max-w-full inset-0 flex justify-between px-6 h-16 border-b border-[#e5e7eb] fixed bg-white">
+    <header class="container max-w-full inset-0 flex justify-between px-6 h-16 border-b border-gray-300 fixed bg-white">
         <div class="flex items-center">
             <a href="{% url 'apps:home' %}" class="mr-2">
                 <img class="w-32" src="https://user-images.githubusercontent.com/83692497/164974621-8c74c74f-f20f-4e1c-a88d-2e9ab3e145ea.png" />
@@ -21,9 +21,8 @@
 
             <!-- 메인 페이지(home.html)를 제외하고, 모든 페이지 헤더에 검색창을 두기 위함 -->
             {% block search-bar %}
-                <form method="POST" action="{% url 'apps:search' %}">
-                    {% csrf_token %}
-                    <input name="searched" class="border border-gray-300 w-72 px-4 py-1.5 text-md font-medium placeholder-gray-400 rounded-full shadow-sm hover:shadow-md transition hover:duration-150 focus:outline-none focus:border-gray-300 focus:ring-gray-300" placeholder="Search By App" />
+                <form method="get" action="{% url 'apps:search' %}">
+                    <input name="q" class="border border-gray-300 w-72 px-4 py-1.5 text-md font-medium placeholder-gray-400 rounded-full shadow-sm hover:shadow-md transition hover:duration-150 focus:outline-none focus:border-gray-300 focus:ring-gray-300" placeholder="Search By App" />
                 </form>
             {% endblock search-bar %}
         </div>

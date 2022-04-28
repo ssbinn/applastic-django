@@ -52,7 +52,9 @@ def all_apps(request):
     # ssbinn_index 내 app data는 100개, elasticsearch는 size 최대 10000까지 가능
 
     try:
-        apps = pagenation(app_list, page)
+        # apps = pagenation(app_list, page)
+        paginator = Paginator(app_list, 12, orphans=5) # page number까지 파라미터로 넘길까봐
+        apps = paginator.page(int(page))
 
         context = {"page": apps}
         return render(request, "apps/app_list.html", context)
@@ -116,21 +118,26 @@ def search_API(keyword):
 
 
 def search(request):
-    if request.method == "POST":
-        keyword = request.POST["searched"]  # 검색창에 입력된 내용 저장 
-        answer = search_API(keyword)  # index 내에 검색한 내용이 있는 지 확인
-       
+    search_query = ''
 
-        print(len(answer))
+    if request.GET.get("q"):
+        search_query = request.GET.get("q")
 
-        if not answer:  # 검색 결과가 없어서 빈 리스트일 경우
-            no_result = True
-            context = {"keyword": keyword, "answer": answer, "no_result": no_result}
-        else:
-            context = {"keyword": keyword, "answer": answer}
+    data = search_API(search_query)  # index 내에 검색한 내용이 있는 지 확인
+    page = request.GET.get("page", 1)
 
-        print(render(request, "apps/app_list.html", context))
-        return render(request, "apps/app_list.html", context)
+    try:
+        answer = pagenation(data, page)
+
+        full_url = "".join(request.get_full_path().split("page")[0])  # 현재 url 가져오기
+        char = "&" 
+        full_url = ''.join(x for x in full_url if x not in char)  # 페이지 이동 시 url에 "&"문자가 누적되는 문제 처리
+
+        context = {"search_query": search_query, "answer": answer, "full_url": full_url}
+        return render(request, "apps/search.html", context)
+    except EmptyPage:  # url에 엉뚱한 page number를 검색할 경우
+        raise Http404
+
 
 def genre_API(genre):  # 장르 태그 선택 시 app list를 불러오는 함수
     es = cloud_auth()
