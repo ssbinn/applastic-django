@@ -6,34 +6,56 @@
 
 {% block content %}
 
+    
     {% if search_query %}
-        <h2>'{{search_query}}'에 대한 검색결과입니다.</h2>
+        <div class="container mx-auto mt-32 w-8/12 pb-10">
+            <div class="flex mb-4 border-b border-gray-300">
+                <h1 class="text-lg font-medium px-3 mb-3">
+                    <span class="font-semibold">'{{search_query}}'</span>에 대한 검색결과입니다.
+                </h1>
+            </div>
 
-        {% if answer %}
-            {% for ans in answer %}
-                <ul>
-                    <a href="{% url 'apps:detail' ans.id %}">  
-                        {{ ans.trackName }}
-                    </a>
-                </ul>
-            {% endfor %}
+            {% if answer %}
+                <div class="flex flex-wrap">
+                    {% for ans in answer %}
+                        <div class="w-1/5 mb-4 px-2 py-2"> 
+                            <div class="border border-gray-300 w-40 h-40 mb-2 rounded-3xl" style="background-image: url({{ans.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
+                            <div class="w-1/2 truncate">
+                                <span class="text-sm">
+                                    <a class="hover:font-semibold" href="{% url 'apps:detail' ans.id %}">{{ ans.trackName }}</a> <!-- url tag, "url의 namespace:경로의 name" argument(<str:id>) -->
+                                </span>
+                            </div>
+                            <span class="text-sm flex items-center">
+                                <img class="w-4 h-4 text-red-800 mr-1" src="https://user-images.githubusercontent.com/83692497/165233199-6a088ecb-a25f-4bde-ab9d-d6326e458073.svg"> {{ans.Ranking}}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
 
-            <!-- pagination -->
-            {% if answer.has_previous %}
-                <a href="{{ full_url }}&page={{answer.previous_page_number}}"><i class="fas fa-arrow-left fa-lg"></i></a>
-            {% endif %}
+                <!-- pagination -->
+                <div class="flex justify-center mt-4 text-md">
+                    {% if answer.has_previous %}
+                        <a href="{{ full_url }}&page={{answer.previous_page_number}}" class="text-teal-400"><i class="fas fa-arrow-left fa-lg"></i></a>
+                    {% endif %}
 
-            <span class="mx-2">Page {{answer.number}} of {{answer.paginator.num_pages}}</span>
+                    <span class="mx-3">Page {{answer.number}} of {{answer.paginator.num_pages}}</span>
 
-            {% if answer.has_next %}
-                <a href="{{ full_url }}&page={{answer.next_page_number}}"><i class="fas fa-arrow-right fa-lg"></i></a>
-            {% endif %}
-        {% else %}
-            <h1>검색된 결과가 없습니다.<br>검색어를 변경해보세요.</h1>
-        {% endif%}
+                    {% if answer.has_next %}
+                        <a href="{{ full_url }}&page={{answer.next_page_number}}" class="text-teal-400"><i class="fas fa-arrow-right fa-lg"></i></a>
+                    {% endif %}
+                </div>
 
+            {% else %}
+                <div class="flex justify-center pb-20 py-10">
+                    <h1 class="text-lg font-semibold">검색된 결과가 없습니다.<br>검색어를 변경해보세요.</h1>
+                </div>
+            {% endif%}
+        </div>
     {% else %}
-        <h1>검색어를 입력해주세요.</h1>
+        <div class="flex justify-center pb-20 py-10">
+            <h1 class="text-lg font-semibold">검색어가 없습니다.<br>검색어를 입력해주세요.</h1>
+        </div>
     {% endif %}
+    
 
 {% endblock %}

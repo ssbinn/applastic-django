@@ -11,16 +11,16 @@
 
 {% block content %}
     <!-- 메인 페이지 중앙 검색창-->
-    <div class="container mx-auto h-50vh w-8/12 py-28 mb-2">
+    <div class="container mx-auto h-50vh w-8/12 py-28 -mt-2">
         <div class="flex justify-center">
             <form class="w-full max-w-xl" method="get" action="{% url 'apps:search' %}">
-                <input name="q" class="w-full border border-gray-300 ring-1 ring-gray-700 px-8 py-4 text-sm font-medium placeholder-gray-400 rounded-full shadow-sm focus:outline-none focus:border-gray-200" placeholder="찾고 싶은 앱을 검색해보세요." />
+                <input name="q" class="search-bar" placeholder="찾고 싶은 앱을 검색해보세요." />
             </form> 
         </div>
 
-        <div class="tag-section flex justify-center mt-5">
+        <div class="flex mt-5">
             <ul>
-                <li class="tag-item m-1">
+                <li class="tag-item">
                     <a href="{% url 'apps:tag' '사진 및 비디오' %}">#사진 및 비디오</a>
                 </li>
                 <li class="tag-item"> 
@@ -79,20 +79,20 @@
     </div>
     
     <div class="container mx-auto w-8/12">
-        <div class="flex flex-wrap justify-between px-3 mb-4 border-b">
-            <h1 class="text-gray-600 text-2xl font-medium mb-2">Preview</h1>
-            <button class="text-xl">
-                <a href="{% url 'apps:apps' %}">More</a>
+        <div class="flex flex-wrap justify-between mb-4 border-b text-gray-600">
+            <h1 class="text-2xl font-medium px-3 mb-3">Preview</h1>
+            <button class="text-xl px-4 hover:text-teal-400">
+                <a class="" href="{% url 'apps:apps' %}">more</a>
             </button>
         </div>
         
         <div class="flex flex-wrap">
             {% for app in app_preview %}
-                <div class="w-1/5 mb-10 px-2">
+                <div class="w-1/5 mb-10 px-2 text-gray-600">
                     <div class="border border-gray-300 w-44 h-44 mb-2 rounded-3xl" style="background-image: url({{app.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
                     <div>
                         <span class="text-sm">
-                            <a href="{% url 'apps:detail' app.id %}">{{ app.trackName }}</a>
+                            <a class="hover:font-semibold" href="{% url 'apps:detail' app.id %}">{{ app.trackName }}</a>
                         </span>
                     </div>
                     <span class="text-sm flex items-center">

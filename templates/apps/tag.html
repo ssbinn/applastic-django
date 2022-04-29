@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Tags
+{% endblock page_title %}
+
+{% block content %}
+    <!-- 메인페이지 - TAG -->
+
+    {% if data_list %}
+    <div class="container mx-auto mt-32 w-9/12 pb-10">
+        <div class="flex mb-4 border-b border-gray-300 text-gray-600">
+            <h1 class="text-lg font-semibold px-3 mb-3">태그명: {{tag}}</h1>
+        </div>
+
+        <div class="flex flex-wrap">
+            {% for data in data_list %}
+                <div class="w-1/5 mb-4 px-2"> 
+                    <div class="border border-gray-300 w-40 h-40 mb-2 rounded-3xl" style="background-image: url({{data.artworkUrl60}}); background-repeat: no-repeat; background-size: cover;"></div>
+                    <div class="w-1/2 truncate">
+                        <span class="text-sm">
+                            <a class="hover:font-semibold" href="{% url 'apps:detail' data.id %}">{{ data.trackName }}</a>
+                        </span>
+                    </div>
+                    <span class="text-sm flex items-center">
+                        <img class="w-4 h-4 text-red-800 mr-1" src="https://user-images.githubusercontent.com/83692497/165233199-6a088ecb-a25f-4bde-ab9d-d6326e458073.svg"> {{data.Ranking}}
+                    </span>
+                </div>
+
+            {% endfor %}
+        </div>
+
+        <!-- pagination -->
+        <div class="flex justify-center mt-4 text-md">
+            {% if data_list.has_previous %}
+                <a href="?page={{data_list.previous_page_number}}" class="text-teal-400"><i class="fas fa-arrow-left fa-lg"></i></a>
+            {% endif %}
+
+            <span class="mx-3">Page {{data_list.number}} of {{data_list.paginator.num_pages}}</span>
+
+            {% if data_list.has_next %}
+                <a href="?page={{data_list.next_page_number}}" class="text-teal-400"><i class="fas fa-arrow-right fa-lg"></i></a>
+            {% endif %}
+        </div>
+    </div>   
+    {% endif %}
+
+{% endblock %}

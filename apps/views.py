@@ -12,8 +12,8 @@ def cloud_auth():
     return es
 
 
-def pagenation(vari, page):
-    paginator = Paginator(vari, 10, orphans=5)
+def pagenation(vari, num, page):
+    paginator = Paginator(vari, num, orphans=5) # num: page number
     list = paginator.page(int(page))
 
     return list
@@ -52,9 +52,7 @@ def all_apps(request):
     # ssbinn_index 내 app data는 100개, elasticsearch는 size 최대 10000까지 가능
 
     try:
-        # apps = pagenation(app_list, page)
-        paginator = Paginator(app_list, 12, orphans=5) # page number까지 파라미터로 넘길까봐
-        apps = paginator.page(int(page))
+        apps = pagenation(app_list, 12, page)
 
         context = {"page": apps}
         return render(request, "apps/app_list.html", context)
@@ -127,7 +125,7 @@ def search(request):
     page = request.GET.get("page", 1)
 
     try:
-        answer = pagenation(data, page)
+        answer = pagenation(data, 10, page)
 
         full_url = "".join(request.get_full_path().split("page")[0])  # 현재 url 가져오기
         char = "&" 
@@ -166,10 +164,10 @@ def tag(request, tag):
     page = request.GET.get("page", 1)
     data_list = genre_API(tag)
 
-    apps = pagenation(data_list, page)
+    apps = pagenation(data_list, 10, page)
 
     context = {"data_list": apps, "tag": tag}
-    return render(request, "apps/app_list.html", context)
+    return render(request, "apps/tag.html", context)
 
 
 def analysis(request):
