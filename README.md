@@ -5,7 +5,6 @@
 <br><br>
 
 - **frontend: Django templates, HTML, TailwindCSS**
-<br>
 
 **팀 프로젝트의 전체적인 내용과 웹 서비스에 대한 자세한 내용은 블로그에 기록할 예정**
 
