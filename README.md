@@ -3,7 +3,7 @@
 <br><br>
 <img src="https://user-images.githubusercontent.com/83692497/166096330-2f6ffafa-7ec5-44ca-925b-0e3a1ed4d614.JPG" width="700" height="400">
 <br>
-<img src="https://user-images.githubusercontent.com/83692497/166096333-d8c764f9-883c-41a8-8fd5-d6a221aa9182.JPG">
+<img src="https://user-images.githubusercontent.com/83692497/166096333-d8c764f9-883c-41a8-8fd5-d6a221aa9182.JPG" width="700" height="400">
 <br>
 - frontend: Django templates, HTML, TailwindCSS
 <br>
