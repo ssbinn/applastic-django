@@ -1,7 +1,7 @@
 # Applastic 
 상명대학교 elastic 팀 프로젝트에서 진행한 애플리케이션 웹 검색 서비스 ( 2022.03.22-2022.04.29 ) 
 <br><br>
-<img src="https://user-images.githubusercontent.com/83692497/166096399-d8b7de7a-b505-4c15-b91b-4e6d786e3f5e.JPG" width="100%" height="500">
+<img src="https://user-images.githubusercontent.com/83692497/166096399-d8b7de7a-b505-4c15-b91b-4e6d786e3f5e.JPG" width="100%" height="450">
 <br><br>
 
 - **frontend: Django templates, HTML, TailwindCSS**
