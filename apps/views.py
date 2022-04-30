@@ -6,8 +6,8 @@ from elasticsearch import Elasticsearch
 
 def cloud_auth():
     es = Elasticsearch(
-        cloud_id="Applastic:YXAtbm9ydGhlYXN0LTIuYXdzLmVsYXN0aWMtY2xvdWQuY29tOjkyNDMkZTU4ZGM0YTBhMWRlNDc1N2ExY2I5ZjUxNzIzODA5MjgkYjhkMDA2NmY4YTU0NDY1MTg1MTA5ZDczNWIyMjQ4NmQ=",
-        http_auth=("elastic", "bSiGnlanK5wQgs8UOYV2u1dJ"),
+        cloud_id="[CLOUD_ID]",
+        http_auth=("[USERNAME]", "[PASSWORD]"),
     )
     return es
 
