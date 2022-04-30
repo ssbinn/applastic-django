@@ -2,10 +2,11 @@
 상명대학교 elastic 팀 프로젝트에서 진행한 애플리케이션 웹 검색 서비스 ( 2022.03.22-2022.04.29 ) 
 <br><br>
 <img src="https://user-images.githubusercontent.com/83692497/166096399-d8b7de7a-b505-4c15-b91b-4e6d786e3f5e.JPG" width="700" height="400">
+<br><br>
+
+- **frontend: Django templates, HTML, TailwindCSS**
 <br>
-- frontend: Django templates, HTML, TailwindCSS
-<br>
-팀 프로젝트의 전체적인 내용과 웹 서비스에 대한 자세한 내용은 블로그에 기록할 예정
+**팀 프로젝트의 전체적인 내용과 웹 서비스에 대한 자세한 내용은 블로그에 기록할 예정**
 
 ## 팀원
 - 최수빈
