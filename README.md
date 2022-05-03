@@ -3,14 +3,14 @@
 팀 프로젝트의 전체적인 내용과 웹 서비스에 대한 자세한 내용은 [블로그](https://ssbinn.github.io/project/elastic-project/)에 기록해두었습니다.
 <br>
 <p align='center'>
-    <img src="https://img.shields.io/badge/Django-v2.2.5-blue?logo=Django"/>
-    <img src="https://img.shields.io/badge/python-v3.9.10-blue?logo=python"/>
-    <img src="https://img.shields.io/badge/HTML-v5-yellow?logo=HTML"/>
+    <img src="https://img.shields.io/badge/Django-v2.2.5-0095D5?logo=Django"/>
+    <img src="https://img.shields.io/badge/python-v3.9.10-3766AB?logo=python"/>
+    <img src="https://img.shields.io/badge/HTML-v5-E34F26?logo=HTML"/>
     <img src="https://img.shields.io/badge/TailwindCSS-v3.0-blue?logo=TailwindCSS"/> <br>
-    <img src="https://img.shields.io/badge/Elasticsearch-v7.17.0-orange?logo=Elasticsearch"/>
-    <img src="https://img.shields.io/badge/Kibana-v7.17.0-orange?logo=Kibana"/>
-    <img src="https://img.shields.io/badge/logstash-v7.17.0-orange?logo=logstash"/>
-    <img src="https://img.shields.io/badge/logstash-v7.17.0-005571?style=round-square&logo=logstash&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Elasticsearch-v7.17.0-005571?logo=Elasticsearch"/>
+    <img src="https://img.shields.io/badge/Kibana-v7.17.0-005571?logo=Kibana"/>
+    <img src="https://img.shields.io/badge/logstash-v7.17.0-005571?logo=logstash"/>
+    
 </p>
 
 ### 화면 소개
