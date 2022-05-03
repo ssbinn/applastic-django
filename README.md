@@ -10,6 +10,7 @@
     <img src="https://img.shields.io/badge/Elasticsearch-v7.17.0-orange?logo=Elasticsearch"/>
     <img src="https://img.shields.io/badge/Kibana-v7.17.0-orange?logo=Kibana"/>
     <img src="https://img.shields.io/badge/logstash-v7.17.0-orange?logo=logstash"/>
+    <img src="https://img.shields.io/badge/logstash-v7.17.0-005571?style=round-square&logo=logstash&logoColor=white"/>
 </p>
 
 ### 화면 소개
