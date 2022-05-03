@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/badge/Django-v2.2.5-blue?logo=Django"/>
     <img src="https://img.shields.io/badge/python-v3.9.10-blue?logo=python"/>
     <img src="https://img.shields.io/badge/HTML-v5-yellow?logo=HTML"/>
-    <img src="https://img.shields.io/badge/TailwindCSS-v2.13.0-blue?logo=TailwindCSS"/> <br>
+    <img src="https://img.shields.io/badge/TailwindCSS-v3.0-blue?logo=TailwindCSS"/> <br>
     <img src="https://img.shields.io/badge/Elasticsearch-v7.17.0-orange?logo=Elasticsearch"/>
     <img src="https://img.shields.io/badge/Kibana-v7.17.0-orange?logo=Kibana"/>
     <img src="https://img.shields.io/badge/logstash-v7.17.0-orange?logo=logstash"/>
